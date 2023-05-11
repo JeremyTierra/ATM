@@ -23,7 +23,6 @@ const users = [
         numCuenta: "2535612",
         nip: "1234"
     }
-
 ];
 
 export default users;
