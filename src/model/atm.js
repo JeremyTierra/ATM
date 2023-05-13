@@ -1,0 +1,63 @@
+import baseDeDatos from "../dataBase/base-de-datos";
+import Deposito from "./deposito";
+import DispensadorEfectivo from "./dispensario-efectivo";
+import RanuraDeposito from "./ranura-deposito";
+import Retiro from "./retiro";
+import SolicitudSaldo from "./solicitud-saldo";
+import Transaccion from "./transaccion";
+
+const SOLICITUD_SALDO = 1;
+const RETIRO = 2;
+const DEPOSITO = 3;
+const SALIR = 4;
+
+class ATM {
+    constructor() {
+        this.usuarioAutenticado = false;
+        this.numeroCuentaActual = 0;
+        this.dispensadorEfectivo = new DispensadorEfectivo();
+        this.ranuraDeposito = new RanuraDeposito();
+        this.baseDeDatos = baseDeDatos;
+    }
+
+    run(numeroCuenta, nip, tipoTransaccion) {
+        this.autenticarUsuario = this.autenticarUsuario(numeroCuenta, nip);
+        this.realizarTransacciones(tipoTransaccion);
+    }
+
+    autenticarUsuario(numeroCuenta, nip) {
+        this.usuarioAutenticado = this.baseDeDatos.autenticarUsuario(numeroCuenta, nip);
+
+        if (this.usuarioAutenticado) {
+            this.numeroCuentaActual = numeroCuenta;
+        } else {
+            return { type: 'failure', msg: 'Numero de cuenta o NIP invalido. Intente de nuevo.' }
+        }
+    }
+
+    realizarTransacciones(tipoTransaccion) {
+        let usuarioSalio = false;
+        let transaccionActual = new Transaccion();
+        while (!usuarioSalio) {
+            switch (tipoTransaccion) {
+                case SOLICITUD_SALDO:
+                    transaccionActual = new SolicitudSaldo(this.numeroCuentaActual, this.baseDeDatos);
+                    transaccionActual.ejecutar();
+                    break;
+                case RETIRO:
+                    transaccionActual = new Retiro(this.numeroCuentaActual, this.baseDeDatos, this.dispensadorEfectivo);
+                    transaccionActual.ejecutar();
+                    break;
+                case DEPOSITO:
+                    transaccionActual = new Deposito(this.numeroCuentaActual, this.baseDeDatos, this.ranuraDeposito);
+                    transaccionActual.ejecutar();
+                    break;
+                case SALIR:
+                    usuarioSalio = true;
+                    return { type: 'success', msg: 'Cerrando sesion' }
+            }
+        }
+    }
+}
+
+export default ATM;
