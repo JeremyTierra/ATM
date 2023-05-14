@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import imgError from "../assets/imgError.svg"
+
 function Error({ msg }) {
     return (<>
         <div className="bg-gray-100 h-screen flex flex-col justify-center">
@@ -14,4 +16,7 @@ function Error({ msg }) {
         </div>
     </>);
 }
+Error.propTypes = {
+    msg: PropTypes.string.isRequired
+};
 export default Error;

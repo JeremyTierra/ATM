@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { atm } from './Login';
+import PropTypes from 'prop-types';
 import Success from '../components/success';
 
-function MainMenu() {
+function MainMenu({ atm }) {
     const [saldos, setSaldos] = useState({});
     const navigateTo = useNavigate();
 
@@ -24,39 +24,50 @@ function MainMenu() {
                                         onClick={() => {
                                             const { saldoDisponible, saldoTotal } = atm.realizarTransacciones(1, 0);
                                             setSaldos({ saldoDisponible, saldoTotal });
-                                            setTimeout(() => { setSaldos({}) }, 5000);
+                                            setTimeout(() => {
+                                                setSaldos({});
+                                                navigateTo('/');
+                                            }, 5000);
                                         }}
                                     >
                                         <div className="relative flex items-center space-x-4 justify-center">
                                             <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Ver mi saldo</span>
                                         </div>
                                     </button>
+
                                     <button
                                         className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                             hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
                                         onClick={() => {
                                             navigateTo('/retiro');
-                                        }}
-                                    >
+                                        }}                                    >
                                         <div className="relative flex items-center space-x-4 justify-center">
                                             <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Retirar Efectivo</span>
                                         </div>
                                     </button>
+
                                     <button
                                         className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-                                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                                        onClick={() => {
+                                            navigateTo('/deposito');
+                                        }}
+                                    >
                                         <div className="relative flex items-center space-x-4 justify-center">
-                                            <a href="">
-                                                <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Depositar Fondos</span>
-                                            </a></div>
+                                            <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Depositar Fondos</span>
+                                        </div>
                                     </button>
+
                                     <button
                                         className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-                                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
+                                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                                        onClick={() => {
+                                            navigateTo('/');
+                                        }}
+                                    >
                                         <div className="relative flex items-center space-x-4 justify-center">
-                                            <a href="">
-                                                <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Salir</span>
-                                            </a></div>
+                                            <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Salir</span>
+                                        </div>
                                     </button>
                                 </div>
                             </div>
@@ -73,4 +84,10 @@ function MainMenu() {
 
     </>);
 }
+
+MainMenu.propTypes = {
+    atm: PropTypes.object.isRequired,
+    setAtm: PropTypes.func.isRequired
+};
+
 export default MainMenu;

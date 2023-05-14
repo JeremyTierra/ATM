@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function Success({ title, msg }) {
     return (<>
         <div className="bg-gray-100 h-screen flex flex-col justify-center">
@@ -15,4 +17,9 @@ function Success({ title, msg }) {
         </div>
     </>);
 }
+
+Success.propTypes = {
+    title: PropTypes.string.isRequired,
+    msg: PropTypes.string.isRequired
+};
 export default Success;

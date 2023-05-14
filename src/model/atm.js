@@ -21,7 +21,7 @@ class ATM {
     }
 
     run(numeroCuenta, nip) {
-        this.autenticarUsuario = this.autenticarUsuario(numeroCuenta, nip);
+        this.autenticarUsuario(numeroCuenta, nip);
     }
 
     autenticarUsuario(numeroCuenta, nip) {
