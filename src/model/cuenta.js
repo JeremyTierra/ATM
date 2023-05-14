@@ -7,7 +7,7 @@ class Cuenta {
     }
 
     validarNIP(nipUsuario) {
-        if (nipUsuario === this.nip) {
+        if (nipUsuario == this.nip) {
             return true;
         } else {
             return false;

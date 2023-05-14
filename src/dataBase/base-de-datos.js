@@ -9,15 +9,17 @@ class BaseDeDatos {
 
     obtenerCuenta(numeroCuenta) {
         let cuenta = null;
-        cuenta = this.cuentas.forEach((cta) => {
-            if (cta.numeroCuenta === numeroCuenta) {
+        cuenta = this.cuentas.map((cta) => {
+            if (cta.numeroCuenta == numeroCuenta) {
                 return cta;
             }
         });
-        return cuenta;
+        return cuenta[0];
     }
 
     autenticarUsuario(numeroCuentaUsuario, nipUsuario) {
+        console.log(numeroCuentaUsuario);
+        console.log(nipUsuario);
         let cuentaUsuario = this.obtenerCuenta(numeroCuentaUsuario);
         if (cuentaUsuario != null) {
             return cuentaUsuario.validarNIP(nipUsuario);

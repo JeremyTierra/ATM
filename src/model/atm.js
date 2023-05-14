@@ -1,4 +1,4 @@
-import baseDeDatos from "../dataBase/base-de-datos";
+import BaseDeDatos from '../dataBase/base-de-datos';
 import Deposito from "./deposito";
 import DispensadorEfectivo from "./dispensario-efectivo";
 import RanuraDeposito from "./ranura-deposito";
@@ -17,12 +17,11 @@ class ATM {
         this.numeroCuentaActual = 0;
         this.dispensadorEfectivo = new DispensadorEfectivo();
         this.ranuraDeposito = new RanuraDeposito();
-        this.baseDeDatos = baseDeDatos;
+        this.baseDeDatos = new BaseDeDatos();
     }
 
-    run(numeroCuenta, nip, tipoTransaccion) {
+    run(numeroCuenta, nip) {
         this.autenticarUsuario = this.autenticarUsuario(numeroCuenta, nip);
-        this.realizarTransacciones(tipoTransaccion);
     }
 
     autenticarUsuario(numeroCuenta, nip) {
@@ -35,23 +34,20 @@ class ATM {
         }
     }
 
-    realizarTransacciones(tipoTransaccion) {
+    realizarTransacciones(tipoTransaccion, monto) {
         let usuarioSalio = false;
         let transaccionActual = new Transaccion();
         while (!usuarioSalio) {
             switch (tipoTransaccion) {
                 case SOLICITUD_SALDO:
                     transaccionActual = new SolicitudSaldo(this.numeroCuentaActual, this.baseDeDatos);
-                    transaccionActual.ejecutar();
-                    break;
+                    return transaccionActual.ejecutar();
                 case RETIRO:
                     transaccionActual = new Retiro(this.numeroCuentaActual, this.baseDeDatos, this.dispensadorEfectivo);
-                    transaccionActual.ejecutar();
-                    break;
+                    return transaccionActual.ejecutar(monto);
                 case DEPOSITO:
                     transaccionActual = new Deposito(this.numeroCuentaActual, this.baseDeDatos, this.ranuraDeposito);
-                    transaccionActual.ejecutar();
-                    break;
+                    return transaccionActual.ejecutar(monto);
                 case SALIR:
                     usuarioSalio = true;
                     return { type: 'success', msg: 'Cerrando sesion' }
