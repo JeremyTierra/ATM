@@ -11,8 +11,6 @@ import Login from './pages/Login';
 import MainMenu from './pages/MainMenu';
 import DepositIncome from './pages/DepositIncome';
 import WithdrawalMenu from './pages/WithdrawalMenu';
-import Error from './components/Error';
-import Success from './components/success';
 import NotFound from './pages/NotFound';
 import ProtectedRouter from './router/ProtectedRouter';
 
