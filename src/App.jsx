@@ -29,8 +29,6 @@ function App({ ATM }) {
             <Route path="/menu" element={<MainMenu atm={atm} setAtm={setAtm} />} />
             <Route path="/deposito" element={<DepositIncome atm={atm} setAtm={setAtm} />} />
             <Route path="/retiro" element={<WithdrawalMenu atm={atm} setAtm={setAtm} />} />
-            <Route path="/error" element={<Error />} />
-            <Route path="/success" element={<Success />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
