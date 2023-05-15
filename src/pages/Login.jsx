@@ -20,8 +20,8 @@ function Login({ atm }) {
   }
   return (<>
     {!error1 &&
-      <div className="bg-blue-950 h-screen overflow-hidden flex items-center justify-center">
-        <div className="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
+      <div className="bg-blue-950 h-screen overflow-hidden flex items-center justify-center ">
+        <div className="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl rounded-sm">
           <div className="bg-white absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
             <img src={imgCajero} alt="img cajero" />
           </div>

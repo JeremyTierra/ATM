@@ -14,6 +14,7 @@ import WithdrawalMenu from './pages/WithdrawalMenu';
 import Error from './components/Error';
 import Success from './components/success';
 import NotFound from './pages/NotFound';
+import ProtectedRouter from './router/ProtectedRouter';
 
 function App({ ATM }) {
 
@@ -24,12 +25,14 @@ function App({ ATM }) {
       <Router>
         <Routes>
           <Route path="/" element={<Login atm={atm} setAtm={setAtm} />} />
-          <Route path="/menu" element={<MainMenu atm={atm} setAtm={setAtm} />} />
-          <Route path="/deposito" element={<DepositIncome atm={atm} setAtm={setAtm} />} />
+          <Route element={<ProtectedRouter atm={atm}></ProtectedRouter>}>
+            <Route path="/menu" element={<MainMenu atm={atm} setAtm={setAtm} />} />
+            <Route path="/deposito" element={<DepositIncome atm={atm} setAtm={setAtm} />} />
+            <Route path="/retiro" element={<WithdrawalMenu atm={atm} setAtm={setAtm} />} />
+            <Route path="/error" element={<Error />} />
+            <Route path="/success" element={<Success />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
-          <Route path="/retiro" element={<WithdrawalMenu atm={atm} setAtm={setAtm} />} />
-          <Route path="/error" element={<Error />} />
-          <Route path="/success" element={<Success />} />
         </Routes>
       </Router>
     </>
