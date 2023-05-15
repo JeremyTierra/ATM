@@ -15,10 +15,10 @@ class Deposito extends Transaccion {
             baseDatosBanco.abonar(this.obtenerNumeroCuenta(), monto);
             return {
                 type: 'success',
-                msg: 'Se recibio su sobre de deposito. NOTA: El dinero que se acaba de depositar no estara disponible sino hasta que verifiquemos el monto del efectivo.'
+                msg: 'Se recibió su sobre de deposito. NOTA: El dinero que se acaba de depositar no estará disponible sino hasta que verifiquemos el monto del efectivo.'
             }
         } else {
-            return { type: 'failure', msg: 'El ATM ha cancelado su transaccion.' }
+            return { type: 'failure', msg: 'El ATM ha cancelado su transacción.' }
         }
     }
 }

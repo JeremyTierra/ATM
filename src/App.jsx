@@ -13,7 +13,7 @@ import DepositIncome from './pages/DepositIncome';
 import WithdrawalMenu from './pages/WithdrawalMenu';
 import Error from './components/Error';
 import Success from './components/success';
-import NotFound from './pages/NotFount';
+import NotFound from './pages/NotFound';
 
 function App({ ATM }) {
 

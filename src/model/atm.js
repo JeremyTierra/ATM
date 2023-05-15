@@ -35,24 +35,26 @@ class ATM {
     }
 
     realizarTransacciones(tipoTransaccion, monto) {
-        let usuarioSalio = false;
         let transaccionActual = new Transaccion();
-        while (!usuarioSalio) {
-            switch (tipoTransaccion) {
-                case SOLICITUD_SALDO:
-                    transaccionActual = new SolicitudSaldo(this.numeroCuentaActual, this.baseDeDatos);
-                    return transaccionActual.ejecutar();
-                case RETIRO:
-                    transaccionActual = new Retiro(this.numeroCuentaActual, this.baseDeDatos, this.dispensadorEfectivo);
-                    return transaccionActual.ejecutar(monto);
-                case DEPOSITO:
-                    transaccionActual = new Deposito(this.numeroCuentaActual, this.baseDeDatos, this.ranuraDeposito);
-                    return transaccionActual.ejecutar(monto);
-                case SALIR:
-                    usuarioSalio = true;
-                    return { type: 'success', msg: 'Cerrando sesion' }
-            }
+        switch (tipoTransaccion) {
+            case SOLICITUD_SALDO:
+                transaccionActual = new SolicitudSaldo(this.numeroCuentaActual, this.baseDeDatos);
+                return transaccionActual.ejecutar();
+            case RETIRO:
+                transaccionActual = new Retiro(this.numeroCuentaActual, this.baseDeDatos, this.dispensadorEfectivo);
+                return transaccionActual.ejecutar(monto);
+            case DEPOSITO:
+                transaccionActual = new Deposito(this.numeroCuentaActual, this.baseDeDatos, this.ranuraDeposito);
+                return transaccionActual.ejecutar(monto);
+            case SALIR:
+                this.usuarioAutenticado = false;
+                this.numeroCuentaActual = 0;
+                return {
+                    type: 'success',
+                    msg: 'Cerrando sesión.'
+                }
         }
+
     }
 }
 

@@ -9,7 +9,7 @@ class SolicitudSaldo extends Transaccion {
         const saldoDisponible = this.baseDeDatos.obtenerSaldoDisponible(this.obtenerNumeroCuenta());
         const saldoTotal = this.baseDeDatos.obtenerSaldoTotal(this.obtenerNumeroCuenta());
 
-        return { saldoDisponible, saldoTotal };
+        return { type: 'success', msg: `Saldo disponible: $${saldoDisponible} - Saldo total: $${saldoTotal}` };
     }
 }
 

@@ -2,10 +2,36 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Success from '../components/success';
+import Error from '../components/Error';
 
-function MainMenu({ atm }) {
+function MainMenu({ atm, setAtm }) {
     const [saldos, setSaldos] = useState({});
     const navigateTo = useNavigate();
+
+    const salir = () => {
+        atm.realizarTransacciones(4, 0);
+        setSaldos({});
+        setAtm(atm);
+        navigateTo('/');
+    }
+
+    const handleVerSaldos = (event) => {
+        event.preventDefault();
+        const { type, msg } = atm.realizarTransacciones(1, 0);
+        setSaldos({ type, msg });
+        setTimeout(() => {
+            salir();
+        }, 5000);
+    }
+
+    const handleSalir = (event) => {
+        event.preventDefault();
+        const { type, msg } = atm.realizarTransacciones(4, 0);
+        setSaldos({ type, msg });
+        setTimeout(() => {
+            salir();
+        }, 5000);
+    }
 
     return (<>
         {Object.keys(saldos).length === 0 &&
@@ -21,14 +47,7 @@ function MainMenu({ atm }) {
                                     <button
                                         className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                             hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                                        onClick={() => {
-                                            const { saldoDisponible, saldoTotal } = atm.realizarTransacciones(1, 0);
-                                            setSaldos({ saldoDisponible, saldoTotal });
-                                            setTimeout(() => {
-                                                setSaldos({});
-                                                navigateTo('/');
-                                            }, 5000);
-                                        }}
+                                        onClick={(event) => handleVerSaldos(event)}
                                     >
                                         <div className="relative flex items-center space-x-4 justify-center">
                                             <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Ver mi saldo</span>
@@ -61,9 +80,7 @@ function MainMenu({ atm }) {
                                     <button
                                         className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                             hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                                        onClick={() => {
-                                            navigateTo('/');
-                                        }}
+                                        onClick={(event) => handleSalir(event)}
                                     >
                                         <div className="relative flex items-center space-x-4 justify-center">
                                             <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Salir</span>
@@ -76,10 +93,17 @@ function MainMenu({ atm }) {
                 </div>
             </div>
         }
-        {Object.keys(saldos).length !== 0 &&
+        {(Object.keys(saldos).length !== 0 && saldos.type === 'success') &&
             <Success
-                title='Saldo de Cuenta'
-                msg={`Saldo disponible: ${saldos.saldoDisponible} - Saldo total: ${saldos.saldoTotal}`} />
+                title='Transacción exitosa'
+                msg={`${saldos.msg}`}
+            />
+        }
+        {
+            (Object.keys(saldos).length !== 0 && saldos.type === 'failure') &&
+            <Error
+                msg={`${saldos.msg}`}
+            />
         }
 
     </>);
