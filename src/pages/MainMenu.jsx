@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Success from '../components/success';
+import Success from '../components/Success';
 import Error from '../components/Error';
 
 function MainMenu({ atm, setAtm }) {
@@ -95,7 +95,7 @@ function MainMenu({ atm, setAtm }) {
         }
         {(Object.keys(saldos).length !== 0 && saldos.type === 'success') &&
             <Success
-                title='Transacción exitosa'
+                title='Transaccion exitosa'
                 msg={`${saldos.msg}`}
             />
         }

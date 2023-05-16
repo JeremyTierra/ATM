@@ -6,6 +6,7 @@ class BaseDeDatos {
         this.cuentas[0] = new Cuenta(10001, 12345, 1000, 1200);
         this.cuentas[1] = new Cuenta(10002, 54321, 200, 200);
         this.cuentas[2] = new Cuenta(10003, 11111, 1000000, 10000000);
+        this.cuentas[3] = new Cuenta(10004, 22222, 100, 150);
     }
 
     obtenerCuenta(numeroCuenta) {

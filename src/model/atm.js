@@ -51,7 +51,7 @@ class ATM {
                 this.numeroCuentaActual = 0;
                 return {
                     type: 'success',
-                    msg: 'Cerrando sesión.'
+                    msg: 'Cerrando sesion.'
                 }
         }
 

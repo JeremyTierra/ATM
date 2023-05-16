@@ -10,8 +10,8 @@ function Success({ title, msg }) {
                     </path>
                 </svg>
                 <div className="text-center">
-                    <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">{title}!</h3>
-                    <p className="text-gray-600 my-2">{msg}</p>
+                    <h3 id="successTitle" className="md:text-2xl text-base text-gray-900 font-semibold text-center">{title}</h3>
+                    <p id="successMsg" className="text-gray-600 my-2">{msg}</p>
                 </div>
             </div>
         </div>

@@ -9,8 +9,8 @@ function Error({ msg }) {
                     <img src={imgError} alt="" />
                 </div>
                 <div className="text-center">
-                    <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">Error!</h3>
-                    <p className="text-gray-600 my-2">{msg}</p>
+                    <h3 id="errorTitle" className="md:text-2xl text-base text-gray-900 font-semibold text-center">Error!</h3>
+                    <p id="errorMsg" className="text-gray-600 my-2">{msg}</p>
                 </div>
             </div>
         </div>

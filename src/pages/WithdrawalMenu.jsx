@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Success from '../components/success';
+import Success from '../components/Success';
 import Error from '../components/Error';
 
 function WithdrawalMenu({ atm, setAtm }) {
@@ -18,6 +18,7 @@ function WithdrawalMenu({ atm, setAtm }) {
     const handleRetiro = (event, monto) => {
         event.preventDefault();
         const { type, msg } = atm.realizarTransacciones(2, monto);
+        console.log(atm.dispensadorEfectivo.cuenta);
         setRetirado({ type, msg });
         setTimeout(() => {
             salir();
@@ -100,14 +101,14 @@ function WithdrawalMenu({ atm, setAtm }) {
                                                 onClick={(event) => handleCancelar(event)}
                                             >
                                                 <div className="relative flex items-center space-x-4 justify-center">
-                                                    <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Cancelar transacción</span>
+                                                    <span className="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">Cancelar transaccion</span>
                                                 </div>
                                             </button>
                                         </div>
                                     </div>
                                 </form>
-                               
-                            
+
+
                             </div>
                         </div>
                     </div>
@@ -117,7 +118,7 @@ function WithdrawalMenu({ atm, setAtm }) {
         {
             (Object.keys(retirado).length !== 0 && retirado.type === 'success') &&
             <Success
-                title='Transacción exitosa'
+                title='Transaccion exitosa'
                 msg={`${retirado.msg}`}
             />
         }
